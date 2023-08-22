@@ -4,6 +4,7 @@ import { addDoc, collection, getDocs } from '@firebase/firestore'
 import SingleChat from './SingleChat';
 import './ChatWindow.css'
 import msgSendSfc from '../assets/send_sfx.mp3'
+import msgRcvSfc from '../assets/msg_rcv_sfx.mp3'
 
 
 export default function ChatWindow() {
@@ -16,7 +17,9 @@ export default function ChatWindow() {
     const scrollableDivRef = useRef(null);
 
     // sfx hooks
-    const audioRef = useRef(null);
+    const sendAudioRef = useRef(null);
+    const [isMyMsg, setIsMyMsg] = useState(true)
+
 
     const ref = collection(firestore, "messages")
 
@@ -34,7 +37,7 @@ export default function ChatWindow() {
             try {
                 addDoc(ref, data)
                 console.log("Sent")
-                playSound()
+                playSendSound()
                 clearText()
             } catch (e) {
                 console.log(e)
@@ -57,6 +60,9 @@ export default function ChatWindow() {
                 const documents = querySnapshot.docs.map(doc => doc.data());
                 const sortedMsgs = documents.sort((a, b) => a.timeStamp - b.timeStamp);
                 setDbChats(sortedMsgs);
+                return () => {
+                    querySnapshot();
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -86,10 +92,23 @@ export default function ChatWindow() {
     };
 
     // SFX Message Send
-    const playSound = () => {
-        audioRef.current.play();
+    const playSendSound = () => {
+        sendAudioRef.current.play();
     };
 
+    // when we recieve message from another person
+    const playRcvSound = () => {
+        const audio = new Audio(msgRcvSfc);
+        audio.play();
+    };
+    // if (isMyMsg === false) {
+    //     playRcvSound()
+    // }
+
+    // const ttt = () => {
+    //     setIsMyMsg(false)
+    //     console.log(isMyMsg)
+    // }
 
     return (
         <>
@@ -108,7 +127,8 @@ export default function ChatWindow() {
                         onKeyDown={handleKeyPress}
                     />
                     <button onClick={sendMessage} id='btnSend'> SEND </button>
-                    <audio ref={audioRef} src={msgSendSfc} />
+                    <audio ref={sendAudioRef} src={msgSendSfc} />
+                    <button onClick={playRcvSound}>rcv msg</button>
                 </div>
             </div>
         </>

@@ -11,6 +11,7 @@ export default function SingleChat(props) {
       <div id='timestamp'>
         {props.sendTime}
       </div>
+      {/* { props.msg === "nini" ? props.messageRecieved() : ""} */}
     </div>
   )
 }
