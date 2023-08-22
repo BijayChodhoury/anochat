@@ -1,12 +1,44 @@
 #singleChatView {
-    border: 2px solid aquamarine;
+    /* border: 2px solid rgb(21, 121, 108); */
     border-radius: 5px;
     width: fit-content;
     height: fit-content;
     /* width: 30%; */
-    background-color: aquamarine;
+    background-color: rgb(21, 121, 108);
     padding: 8px;
     margin-top: 1rem;
     margin-left: 2rem;
     margin-bottom: 1rem;
+    /* animation */
+    animation-name: singleChatAnimation;
+    animation-duration: 0.2s;
+    /* animation-timing-function: ease-out; */
+}
+
+@keyframes singleChatAnimation {
+    from {
+        background-color: azure;
+    }
+
+    to {
+        background-color: rgb(21, 121, 108);
+    }
+}
+
+#msg {
+    /* border: 2px solid red; */
+    height: 70%;
+    font-weight: 600;
+    color: white;
+}
+
+#timestamp {
+    /* border: 2px solid red; */
+    height: 20%;
+    font-size: 10px;
+    /* position: sticky; */
+    padding-top: 8px;
+    right: 2rem;
+    color: white;
+    font-style: italic;
 }

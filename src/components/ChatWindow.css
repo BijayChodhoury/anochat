@@ -6,7 +6,8 @@
     border-radius: 10px;
     padding: 2rem;
     /* position */
-    position: fixed; /* or absolute, depending on your layout needs */
+    position: fixed;
+    /* or absolute, depending on your layout needs */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -24,16 +25,37 @@
 #sendMessage {
     /* border: 2px solid rgb(255, 255, 255); */
     width: 100%;
-    height: 4rem;
+    height: 2rem;
     margin-top: 1rem;
 }
 
 #inputText {
     width: 80%;
-    height: 2rem;
+    height: 100%;
 }
 
+/* Button style */
 #btnSend {
     width: 19%;
-    height: 2.3rem;
+    height: 118%;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: rgb(21, 121, 108);
+    background: transparent;
+    cursor: pointer;
+    transition: ease-out 0.5s;
+    border: 2px solid rgb(21, 121, 108);
+    box-shadow: inset 0 0 0 0 rgb(21, 121, 108);
+}
+
+#btnSend:hover {
+    color: white;
+    box-shadow: inset 0 -100px 0 0 rgb(21, 121, 108);
+}
+
+#btnSend:active {
+    transform: scale(0.9);
 }

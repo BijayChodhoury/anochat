@@ -3,35 +3,46 @@ import { firestore } from '../firebase'
 import { addDoc, collection, getDocs } from '@firebase/firestore'
 import SingleChat from './SingleChat';
 import './ChatWindow.css'
+import msgSendSfc from '../assets/send_sfx.mp3'
 
 
 export default function ChatWindow() {
 
     const [chatText, setChatText] = useState("")
+
     // state for fetched messages
     const [dbChats, setDbChats] = useState([]);
-    const [isSendBtnClicked, setIsSendBtnClicked] = useState(0)
+    const [isSendBtnClicked, setIsSendBtnClicked] = useState(false)
     const scrollableDivRef = useRef(null);
+
+    // sfx hooks
+    const audioRef = useRef(null);
 
     const ref = collection(firestore, "messages")
 
     const sendMessage = async (e) => {
-        setIsSendBtnClicked(() => isSendBtnClicked + 1)
-        e.preventDefault();
-        let data = {
-            timeStamp: (new Date(Date.now())),
-            message: chatText
+        if (chatText === "") {
+            console.log("empty message cannot be send")
+            return
+        } else {
+            setIsSendBtnClicked(!isSendBtnClicked)
+            e.preventDefault();
+            let data = {
+                timeStamp: (new Date(Date.now())),
+                message: chatText
+            }
+            try {
+                addDoc(ref, data)
+                console.log("Sent")
+                playSound()
+                clearText()
+            } catch (e) {
+                console.log(e)
+                clearText()
+            }
+            const inputField = document.getElementById("inputText");
+            inputField.focus();
         }
-        try {
-            addDoc(ref, data)
-            console.log("Sent")
-            clearText()
-        } catch (e) {
-            console.log(e)
-            clearText()
-        }
-        const inputField = document.getElementById("inputText");
-        inputField.focus();
     }
 
     const clearText = () => {
@@ -66,6 +77,18 @@ export default function ChatWindow() {
         scrollToBottom();
     }, [dbChats]);
 
+    // When "Enter" is pressed in Input Field
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            sendMessage(event);
+            console.log('Enter key pressed inside input field');
+        }
+    };
+
+    // SFX Message Send
+    const playSound = () => {
+        audioRef.current.play();
+    };
 
 
     return (
@@ -82,8 +105,10 @@ export default function ChatWindow() {
                         value={chatText}
                         onChange={(e) => setChatText(e.target.value)}
                         id='inputText'
+                        onKeyDown={handleKeyPress}
                     />
                     <button onClick={sendMessage} id='btnSend'> SEND </button>
+                    <audio ref={audioRef} src={msgSendSfc} />
                 </div>
             </div>
         </>
