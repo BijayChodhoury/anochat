@@ -72,9 +72,8 @@ export default function ChatWindow() {
                 console.error('Error fetching data:', error);
             }
         };
-
         fetchData();
-    }, [isSendBtnClicked]);
+    });
 
     // Function to scroll to the bottom of the div
     const scrollToBottom = () => {
