@@ -133,7 +133,7 @@ export default function ChatWindow() {
                     />
                     <button onClick={sendMessage} id='btnSend'> SEND </button>
                     <audio ref={sendAudioRef} src={msgSendSfc} />
-                    <button onClick={playRcvSound}>rcv msg</button>
+                    {/* <button onClick={playRcvSound}>rcv msg</button> */}
                 </div>
                 <img id='btnMute' src={isMute ? muteIcon : unMuteIcon} alt='mute/unmute icon' onClick={() => setIsMute(!isMute)}></img>
             </div>
