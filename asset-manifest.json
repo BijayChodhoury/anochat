@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/anochat/static/css/main.e7b9071d.css",
+    "main.js": "/anochat/static/js/main.61ffd59d.js",
+    "static/js/787.951f4c2a.chunk.js": "/anochat/static/js/787.951f4c2a.chunk.js",
+    "static/media/msg_rcv_sfx.mp3": "/anochat/static/media/msg_rcv_sfx.63660b3ddc4b94975969.mp3",
+    "static/media/send_sfx.mp3": "/anochat/static/media/send_sfx.b6ba29659cf55d571cc0.mp3",
+    "static/media/icon_mute.svg": "/anochat/static/media/icon_mute.8c48e187baefe7bac031e73cd5c76e9a.svg",
+    "static/media/icon_unmute.svg": "/anochat/static/media/icon_unmute.ff4b6c80101b1762fb9df2eb0b28dc91.svg",
+    "index.html": "/anochat/index.html",
+    "main.e7b9071d.css.map": "/anochat/static/css/main.e7b9071d.css.map",
+    "main.61ffd59d.js.map": "/anochat/static/js/main.61ffd59d.js.map",
+    "787.951f4c2a.chunk.js.map": "/anochat/static/js/787.951f4c2a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7b9071d.css",
+    "static/js/main.61ffd59d.js"
+  ]
+}
