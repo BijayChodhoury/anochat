@@ -5,6 +5,8 @@ import SingleChat from './SingleChat';
 import './ChatWindow.css'
 import msgSendSfc from '../assets/send_sfx.mp3'
 import msgRcvSfc from '../assets/msg_rcv_sfx.mp3'
+import muteIcon from '../assets/icon_mute.svg'
+import unMuteIcon from '../assets/icon_unmute.svg'
 
 
 export default function ChatWindow() {
@@ -19,6 +21,7 @@ export default function ChatWindow() {
     // sfx hooks
     const sendAudioRef = useRef(null);
     const [isMyMsg, setIsMyMsg] = useState(true)
+    const [isMute, setIsMute] = useState(false)
 
 
     const ref = collection(firestore, "messages")
@@ -37,7 +40,9 @@ export default function ChatWindow() {
             try {
                 addDoc(ref, data)
                 console.log("Sent")
-                playSendSound()
+                if (isMute === false) {
+                    playSendSound()
+                }
                 clearText()
             } catch (e) {
                 console.log(e)
@@ -67,7 +72,8 @@ export default function ChatWindow() {
                 console.error('Error fetching data:', error);
             }
         };
-        fetchData()
+
+        fetchData();
     }, [isSendBtnClicked]);
 
     // Function to scroll to the bottom of the div
@@ -128,8 +134,9 @@ export default function ChatWindow() {
                     />
                     <button onClick={sendMessage} id='btnSend'> SEND </button>
                     <audio ref={sendAudioRef} src={msgSendSfc} />
-                    <button onClick={playRcvSound}>rcv msg</button>
+                    {/* <button onClick={playRcvSound}>rcv msg</button> */}
                 </div>
+                <img id='btnMute' src={isMute ? muteIcon : unMuteIcon} alt='mute/unmute icon' onClick={() => setIsMute(!isMute)}></img>
             </div>
         </>
     )
